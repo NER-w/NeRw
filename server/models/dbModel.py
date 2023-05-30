@@ -19,7 +19,7 @@ class Patient(Base):
 class Appointment(Base):
     __tablename__ = "appointment"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    DateTime = Column(DateTime)
+    dateTime = Column(DateTime)
     Duration = Column(Integer)
     patient_id = Column(Integer, ForeignKey("patient.id"))
     patient = relationship("Patient", back_populates="appointments")
@@ -37,7 +37,7 @@ class Doctor(Base):
     permissions = relationship("DataPermissions", back_populates="doctor")
 
 
-class SensorData(Base):
+class MeasuredData(Base):
     __tablename__ = "sensor_data"
     id = Column(Integer, primary_key=True, autoincrement=True)
     data = Column(String, nullable=False)
@@ -48,7 +48,7 @@ class SensorData(Base):
 class UserTracker(Base):
     __tablename__ = "user_tracker"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    deviceIP = Column(String)
+    deviceIP = Column(Integer)
     patient_id = Column(Integer, ForeignKey("patient.id"))
     patient = relationship("Patient", back_populates="user_tracker")
 
