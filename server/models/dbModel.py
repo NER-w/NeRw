@@ -38,11 +38,13 @@ class Doctor(Base):
 
 
 class MeasuredData(Base):
-    __tablename__ = "sensor_data"
+    __tablename__ = "measured_data"
     id = Column(Integer, primary_key=True, autoincrement=True)
     data = Column(String, nullable=False)
+    value = Column(String)
     patient_id = Column(Integer, ForeignKey("patient.id"))
     patient = relationship("Patient", back_populates="sensor_data")
+
 
 
 class UserTracker(Base):
