@@ -46,7 +46,6 @@ class MeasuredData(Base):
     patient = relationship("Patient", back_populates="sensor_data")
 
 
-
 class UserTracker(Base):
     __tablename__ = "user_tracker"
     id = Column(Integer, primary_key=True, autoincrement=True)
