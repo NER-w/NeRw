@@ -1,0 +1,63 @@
+# Python-related files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyz
+*.pyw
+
+# Environment and virtual environment files
+.env
+.venv/
+env/
+venv/
+env.bak/
+venv.bak/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Logs and generated files
+logs/
+*.log
+*.pot
+*.pyc
+*.swp
+
+# Dependency directories
+lib/
+libs/
+lib64/
+parts/
+sdist/
+build/
+dist/
+bin/
+
+# Compiled Python extensions
+*.so
+*.pyd
+*.dll
+*.pyc
+
+# Other generated files
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.manifest
+*.spec
+
+# Miscellaneous
+*.db
+*.sqlite3
+*.bak
+*.cache
+*.tmp
+
+# Ignore the web server's log files
+access.log
+error.log
