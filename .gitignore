@@ -7,7 +7,7 @@ __pycache__/
 *.pyw
 
 # Environment and virtual environment files
-.env
+.env*
 .venv/
 env/
 venv/
@@ -36,6 +36,9 @@ sdist/
 build/
 dist/
 bin/
+/node_modules
+/.pnp
+.pnp.js
 
 # Compiled Python extensions
 *.so
@@ -52,12 +55,23 @@ MANIFEST
 *.spec
 
 # Miscellaneous
+.DS_Store
 *.db
 *.sqlite3
 *.bak
 *.cache
 *.tmp
 
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
 # Ignore the web server's log files
 access.log
 error.log
+
+# testing
+/coverage
+
+# production
+/build
