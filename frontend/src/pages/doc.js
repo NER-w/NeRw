@@ -4,7 +4,7 @@ import {Body} from "../components";
 const Doc = () => {
     return (
         <div>
-            <Body/>
+            <h1>JURIY RIZHSKIY</h1>
         </div>
     );
 };

@@ -1,0 +1,9 @@
+export const HOME_ROUTE = '/';
+export const LOGIN_ROUTE = '/login';
+export const REGISTER_ROUTE = '/register';
+export const DOCTOR_APPLICATION_ROUTE = '/doc-app';
+export const USER_APPLICATION_ROUTE = '/user-app';
+export const USER_DATA_ROUTE = '/user-data';
+export const USER_APPOINTMENT_ROUTE = '/appointment-user';
+export const DOCTOR_APPOINTMENT_ROUTE = '/appointment-doc';
+export const PATIENT_LIST_ROUTE = '/patient-list';

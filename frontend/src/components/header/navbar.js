@@ -11,11 +11,20 @@ const Navbar = () => {
         <div>
             <nav className="HeaderBar">
                 {UserStore.isAuth ? (
-                    <div className="dropdown">
-                        <button className="dropbtn"></button>
-                        <div className="dropdown-content">
-                            <a href="#" id="link">Profile</a><a href="#" id="link">Logout</a>
-                            <a href="#" id="link">Help</a>
+                    <div className="root">
+                        <div className="appointments">
+                                <h1>ASDASD</h1>
+                        </div>
+                        <div className="sensordata">
+                                <h2>TQWURtQWUYR</h2>
+                        </div>
+                        <div className="dropdown">
+                            <button className="dropbtn"></button>
+                            <div className="dropdown-content">
+                                <a href="#" id="link">Profile</a>
+                                <a href="#" id="link">Logout</a>
+                                <a href="#" id="link">Help</a>
+                            </div>
                         </div>
                     </div>
                 ) : (
