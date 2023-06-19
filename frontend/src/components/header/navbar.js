@@ -4,6 +4,8 @@ import {Context} from "../../index";
 
 import './style.css';
 
+
+//  for push
 const Navbar = () => {
     const {UserStore} = useContext(Context);
     console.log(UserStore);
