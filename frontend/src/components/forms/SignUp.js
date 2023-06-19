@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
 import './SignUp.css';
+import {patientRegistration,doctorRegister} from "../../api/api";
+import doc from "../../pages/doc";
+// import {patientRegistration} from "../../api/api";
 
 
 const SignUp = () => {
@@ -9,6 +12,11 @@ const SignUp = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [lastname, setLastname] = useState('');
 
+    const PatientDTO = {
+        name: firstname,
+        lastname: lastname,
+        password: password
+    }
 
 
     const handleSubmit = (e) => {
@@ -56,7 +64,7 @@ const SignUp = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <input  type="radio" id="user" name="role" value="user"/>
+                <input type="radio" id="user" name="role" value="user"/>
                 <label id="SignUpHandler" htmlFor="user">Patient</label>
                 <input type="radio" id="doctor" name="role" value="doctor"/>
                 <label id="SignUpHandler" htmlFor="doctor">Doctor</label>
@@ -64,7 +72,9 @@ const SignUp = () => {
                     <p id="SignUpHandler">Already have an account? <a href="/login">Login Now!</a></p>
                 </div>
 
-                <input type="submit" value="Register"/>
+                <button onClick={() => doctorRegister()} type="submit" value="Register">
+                    Register
+                </button>
 
 
             </form>

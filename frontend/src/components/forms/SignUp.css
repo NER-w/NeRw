@@ -26,7 +26,7 @@
     border-radius: 10px;
 }
 
-.login-form input[type="submit"] {
+.login-form button[type="submit"] {
     width: 100%;
     padding: 10px;
     background-color: #B6C7BE;
@@ -36,7 +36,7 @@
     border-radius: 10px;
 }
 
-.login-form input[type="submit"]:hover {
+.login-form button[type="submit"]:hover {
     background-color: #6E6F73;
 }
 

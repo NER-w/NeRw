@@ -12,12 +12,20 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import {useNavigate} from "react-router-dom";
 
-const pages = ['Appointments', 'Sensor Data'];
-const settings = ['Profile', 'Log out'];
+
 
 
 function ResponsiveAppBar() {
+    const pages = [
+        {name: 'Appointments', route: '/appointment-user'},
+        {name: 'Sensor Data', route: '/user-data'}];
+    const settings = ['Profile', 'Log out'];
+    const navigate = useNavigate();
+    function toUrl(route) {
+        navigate(route);
+    }
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -92,8 +100,8 @@ function ResponsiveAppBar() {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">{page.name}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -120,11 +128,11 @@ function ResponsiveAppBar() {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                             <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block', fontSize: "20px", fontFamily: "Arial" }}
+                                key={page.name}
+                                sx={{ my: 2, color: 'white', display: 'block', fontSize: '20px', fontFamily: 'Arial' }}
+                                onClick={() => toUrl(page.route)}
                             >
-                                {page}
+                                {page.name}
                             </Button>
                         ))}
                     </Box>
