@@ -15,7 +15,7 @@ class Patient(Base):
     permissions = relationship("DataPermissions", back_populates="patient")
     user_tracker = relationship("UserTracker", back_populates="patient")
 
-
+ 
 class Appointment(Base):
     __tablename__ = "appointment"
     id = Column(Integer, primary_key=True, autoincrement=True)
