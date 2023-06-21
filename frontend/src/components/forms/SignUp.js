@@ -1,37 +1,84 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import './SignUp.css';
 import {patientRegistration,doctorRegister} from "../../api/api";
 import doc from "../../pages/doc";
+import { useNavigate } from 'react-router-dom';
+import {Context} from '../../index.js';
 // import {patientRegistration} from "../../api/api";
 
-
 const SignUp = () => {
+    const navigate = useNavigate();
+
+    const {UserStore} = useContext(Context);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [firstname, setFistname] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [lastname, setLastname] = useState('');
-
+    const [doctorState, setDoctorState] = useState(false);
+    const [patientState, setPatientState] = useState(false);
+    
     const PatientDTO = {
         name: firstname,
         lastname: lastname,
-        password: password
+        hashedPassword: password,
+        email: username
+    }
+    const doctorDTO = {
+        name: firstname,
+        lastname: lastname,
+        hashedPassword: password,
+        email: username
     }
 
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     setUsername('');    
+    //     setPassword('');
+    //     setErrorMessage('');
+    //     setFistname('');
+    //     setLastname('');
+    //     console.log("I am handleSubmit");
+    // };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setUsername('');
-        setPassword('');
-        setErrorMessage('');
-        setFistname(' ');
-        setLastname('');
-    };
+    const handleSubmitTwo = async () => {
+        console.log("I am handleSubmitTwo");
+        if (doctorState){
+          try {
+            console.log(doctorDTO);
+            const status = await doctorRegister(doctorDTO);
+            console.log("DOC: " + status);
+            if (status === 200){
+              navigate('/home');
+              UserStore.setDoc(true);
+            } else if (status === 401){
+              alert('Im not the one who is wrong... What is wrong is the world.');
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        } else if (patientState){
+          try {
+            const status = await patientRegistration(PatientDTO);
+            console.log("PAT: " + status);
+            if(status === 200){
+              navigate('/home');
+              UserStore.setUser(true);
+            } else if(status === 401){
+              alert('Those who do not understand true pain can never understand true peace.');
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        } else {
+          console.log("Congratulations!");
+        }
+      };
 
     return (
         <div className="login-form">
             <h3 id="SignInHandler">Sign Up </h3>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <input
                     type="firstname"
                     name="firstname"
@@ -64,20 +111,21 @@ const SignUp = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <input type="radio" id="user" name="role" value="user"/>
-                <label id="SignUpHandler" htmlFor="user">Patient</label>
-                <input type="radio" id="doctor" name="role" value="doctor"/>
-                <label id="SignUpHandler" htmlFor="doctor">Doctor</label>
+                <input type="radio" onClick={(e) => {setPatientState(true)} } id="user" name="role" value="user"/>
+                <label id="SignUpHandler" >Patient</label>
+                <input type="radio" id="doctor"  onClick={(e) => {setDoctorState(true)} } name="role" value="doctor" />
+                <label id="SignUpHandler" htmlFor="doctor" >Doctor</label>
+
                 <div>
+                
                     <p id="SignUpHandler">Already have an account? <a href="/login">Login Now!</a></p>
+                    <p>If you don't want to login, you can look at me! <b>Paragraph!</b></p>
                 </div>
 
-                <button onClick={() => doctorRegister()} type="submit" value="Register">
-                    Register
-                </button>
-
-
             </form>
+            <button onClick={() => {handleSubmitTwo(); console.log("SUBMIT");}} type="submit" value="Register">
+                Register
+            </button>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
     );

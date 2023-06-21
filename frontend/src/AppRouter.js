@@ -8,7 +8,7 @@ import User from "./pages/user";
 
 const AppRouter = () => {
     const {UserStore} = useContext(Context);
-    console.log("DEBUG"+ UserStore.isAuth);
+    console.debug("DEBUG: " + UserStore.isAuth);
     return (
         <Routes>
             {

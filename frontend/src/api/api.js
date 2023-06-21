@@ -1,21 +1,27 @@
 import axios from "axios";
 
-export const API_URL = process.env.API_HOST;
+export const API_URL = "https://1b02-2001-1c06-1b06-8e00-bd77-9dd-392c-6cd1.ngrok-free.app/";
 
 const api = axios.create({
-    withCredentials: true,
+    withCredentials: false,
     baseURL: API_URL,
+    timeout: 10000,
+    headers: {
+        "Access-Control-Allow-Origin": "*"
+    }
     // cancelToken: axios.CancelToken.source().token // Set default cancelToken
 })
 
 // const api = require('./index')
-/// patient requests
-
+// patient requests
+// zdraste
 //
 
 export async function patientRegistration(patientDTO) {
     try {
-        return await api.post('/patient-registration', patientDTO);
+        const res = await api.post('/user/sign-up-patient', patientDTO);
+        console.log("Status: " + res.status)
+         return res.status;
     } catch (e) {
         console.error(e);
     }
@@ -37,14 +43,11 @@ export async function doctorLogin(doctorDTO) {
     }
 }
 
-export async function doctorRegister() {
+export async function doctorRegister(doctorDTO) {
     try {
-        return await api.post('/user/sign-up-doctor', {
-            name: "oskar",
-            lastname: "sada",
-            password: "mamaka",
-            email: "test@"
-        });
+        const res =  await api.post('/user/sign-up-doctor', doctorDTO);
+        console.log("Status: " + res.status)
+        return res.status;
     } catch (e) {
         console.error(e);
     }

@@ -1,7 +1,7 @@
-// import {Axios} from 'axios';
+ import {Axios} from 'axios';
 // const axios = require('axios');
 
-
+// I can write
     import axios from "axios";
 
     export const API_URL = process.env.API_HOST;

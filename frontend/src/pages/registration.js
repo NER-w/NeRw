@@ -3,7 +3,9 @@ import SignUp from "../components/forms/SignUp";
 
 const Registration = () => {
     return (
-        <SignUp/>
+    
+            <SignUp/>
+       
     );
 };
 
