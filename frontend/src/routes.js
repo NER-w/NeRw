@@ -19,15 +19,12 @@ import  DoctorAppoint from "./pages/DoctorAppoint";
 import UserAppointmenrt from "./pages/userAppointmenrt";
 
 
-export const AuthRoutes =[
+export const PatientRoutes =[
     {
         path: PATIENT_LIST_ROUTE,
         Component: PatientList,
     },
-    {
-      path: DOCTOR_APPOINTMENT_ROUTE,
-      Component: DoctorAppoint,
-    },
+
     {
         path: HOME_ROUTE,
         Component: Profile,
@@ -36,10 +33,7 @@ export const AuthRoutes =[
         path: USER_DATA_ROUTE,
         Component: User_data,
     },
-    {
-        path: DOCTOR_APPLICATION_ROUTE,
-        Component: Doc,
-    },
+
     {
         path: USER_APPLICATION_ROUTE,
         Component: User,
@@ -49,7 +43,21 @@ export const AuthRoutes =[
         Component: UserAppointmenrt,
     },
 ];
+export const DoctorRoutes = [
+    {
+        path: DOCTOR_APPOINTMENT_ROUTE,
+        Component: DoctorAppoint,
+    },
+    {
+        path: HOME_ROUTE,
+        Component: Profile,
+    },
 
+    {
+        path: DOCTOR_APPLICATION_ROUTE,
+        Component: Doc,
+    }
+]
 export const PublicRoutes = [
     {
         path: LOGIN_ROUTE,

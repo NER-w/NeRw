@@ -1,10 +1,9 @@
 import React, {useState, useContext} from 'react';
 import './SignUp.css';
-import {patientRegistration,doctorRegister} from "../../api/api";
+import {patientRegister, doctorRegister} from "../../api/api";
 import doc from "../../pages/doc";
 import { useNavigate } from 'react-router-dom';
 import {Context} from '../../index.js';
-// import {patientRegistration} from "../../api/api";
 
 const SignUp = () => {
     const navigate = useNavigate();
@@ -46,7 +45,8 @@ const SignUp = () => {
         if (doctorState){
           try {
             console.log(doctorDTO);
-            const status = await doctorRegister(doctorDTO);
+            const res = await doctorRegister(doctorDTO);
+            const status = res.status;
             console.log("DOC: " + status);
             if (status === 200){
               navigate('/home');
@@ -59,7 +59,7 @@ const SignUp = () => {
           }
         } else if (patientState){
           try {
-            const status = await patientRegistration(PatientDTO);
+            const status = await patientRegister(PatientDTO);
             console.log("PAT: " + status);
             if(status === 200){
               navigate('/home');
@@ -71,7 +71,7 @@ const SignUp = () => {
             console.error(error);
           }
         } else {
-          console.log("Congratulations!");
+          console.log("Omedeto!");
         }
       };
 
@@ -82,7 +82,7 @@ const SignUp = () => {
                 <input
                     type="firstname"
                     name="firstname"
-                    placeholder="First Name"
+                    placeholder="I'm not a paragraph, I'm a <b>placeholder!</b>"
                     value={firstname}
                     onChange={(e) => setFistname(e.target.value)}
                     required
@@ -117,9 +117,7 @@ const SignUp = () => {
                 <label id="SignUpHandler" htmlFor="doctor" >Doctor</label>
 
                 <div>
-                
                     <p id="SignUpHandler">Already have an account? <a href="/login">Login Now!</a></p>
-                    <p>If you don't want to login, you can look at me! <b>Paragraph!</b></p>
                 </div>
 
             </form>

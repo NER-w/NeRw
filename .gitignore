@@ -36,7 +36,6 @@ sdist/
 build/
 dist/
 bin/
-/frontend/node_modules
 /.pnp
 .pnp.js
 
@@ -76,3 +75,4 @@ error.log
 
 # production
 /build
+/frontend/node_modules

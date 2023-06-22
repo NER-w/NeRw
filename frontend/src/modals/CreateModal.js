@@ -5,6 +5,9 @@ import Modal from '@mui/material/Modal';
 import BookedForm from '../components/forms/BookedForm'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import {useContext, useState} from 'react'
+import {Context} from "../index";
+import {appointmentCreate} from "../api/api";
 const style = {
     position: 'absolute' ,
     top: '50%',
@@ -19,13 +22,33 @@ const style = {
 
 export default function CreateModal() {
     const [open, setOpen] = React.useState(false);
-
+    const {UserStore} = useContext(Context);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [dateTime_, setDateTime] = useState('')
+    const [duration_, setDuration] = useState('')
+
+    const appDTO = {
+            dateTime: dateTime_,
+            duration: duration_,
+            patient_id:  1,
+            doctor_id: 1
+    }
+
+    const createApp = async () => {
+        const res = await appointmentCreate(appDTO);
+        const status = res.status;
+        if (status == 200) {
+            alert("Not paragraph!");
+        } else {
+            alert("Paragraph!");
+        }
+        console.log(res);
+    }
 
     return (
         <div>
-            <Button onClick={handleOpen}>Open modal</Button>
+            <Button onClick={handleOpen}>Open  <b>PARAGRAPH</b></Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -33,31 +56,31 @@ export default function CreateModal() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Create appointment
+                        Create  <b>PARAGRAPH</b>
                     </Typography>
 
                     <Typography id="modal-modal-title" variant="h6" component="h3">
-                          In format: MM-DD-YY hh:mm
+                        In format: MM-DD-YY hh:mm
                     </Typography>
 
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    <Typography id="modal-modal-description" sx={{mt: 2}}>
                         <Box
                             component="form"
                             sx={{
-                                '& > :not(style)': { m: 1, width: '25ch' },
+                                '& > :not(style)': {m: 1, width: '25ch'},
                             }}
                             noValidate
                             autoComplete="off"
                         >
 
-                            <TextField id="Enter date and time" label="Enter date and time" variant="standard" />
+                            <TextField onChange={(data) => setDateTime(data.target.value)} id="Enter date and time"
+                                       label="Enter date and time" variant="standard"/>
+                            <TextField onChange={(data) => setDuration(data.target.value)} id="Duration" label="Enter duration"
+                                       variant="standard"/>
                         </Box>
                     </Typography>
-                    <Button variant="text">Confirm</Button>
-
-
+                    <Button onClick={() => createApp()} variant="text">Confirm</Button>
                 </Box>
             </Modal>
         </div>

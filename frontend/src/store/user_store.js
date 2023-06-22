@@ -4,8 +4,16 @@ class UserStore {
     constructor(){
         this._isAuth = false;
         this._isUser = false;
-        this._isDoc = false;
+        this._isDoc = true;
+        this.userId = null;
+        this.docId = 1;
         makeAutoObservable(this);
+    }
+    setUserId(id){
+        this.userId = id;
+    }
+    setDocId(id){
+        this.docId=id;
     }
     get isAuth(){
         return this._isAuth;
@@ -17,7 +25,7 @@ class UserStore {
     get isDoc() {
         return this._isDoc;
     }
-
+    
     setDoc(state){
         this._isDoc = state;
     }

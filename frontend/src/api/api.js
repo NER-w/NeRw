@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = "https://1b02-2001-1c06-1b06-8e00-bd77-9dd-392c-6cd1.ngrok-free.app/";
+export const API_URL = "https://1757-145-76-108-223.ngrok-free.app/";
 
 const api = axios.create({
     withCredentials: false,
@@ -12,43 +12,27 @@ const api = axios.create({
     // cancelToken: axios.CancelToken.source().token // Set default cancelToken
 })
 
-// const api = require('./index')
-// patient requests
-// zdraste
-//
-
-export async function patientRegistration(patientDTO) {
+async function request(method, url, payload) {
     try {
-        const res = await api.post('/user/sign-up-patient', patientDTO);
-        console.log("Status: " + res.status)
-         return res.status;
+        const res = await method(url, payload);
+        console.debug("Status: " + res)
+        return res;
     } catch (e) {
         console.error(e);
     }
 }
 
-export async function patientLogin(patientDTO) {
-    try {
-        return await api.post('/sign-up-patient', patientDTO);
-    } catch (e) {
-        console.error(e);
-    }
-}
+const requestGet  = async (url)          => request(api.get, url, null);
+const requestPost = async (url, payload) => request(api.post, url, payload);
 
-export async function doctorLogin(doctorDTO) {
-    try {
-        return await api.post('/login-doctor', doctorDTO);
-    } catch (e) {
-        console.error(e);
-    }
-}
+// User/Doctor login/registration
+export const patientLogin    = async (patientDTO) => requestPost("/user/login-patient", patientDTO);
+export const patientRegister = async (patientDTO) => requestPost("/user/sign-up-patient", patientDTO);
+export const doctorLogin     = async (doctorDTO)  => requestPost("/user/login-doctor", doctorDTO);
+export const doctorRegister  = async (doctorDTO)  => requestPost("/user/sign-up-doctor", doctorDTO);
 
-export async function doctorRegister(doctorDTO) {
-    try {
-        const res =  await api.post('/user/sign-up-doctor', doctorDTO);
-        console.log("Status: " + res.status)
-        return res.status;
-    } catch (e) {
-        console.error(e);
-    }
-}
+// Appointments
+export const appointmentsGet    = async ()               => requestGet("/appointment");
+export const appointmentGetById = async (id)             => requestGet("/appointment/" + id);
+export const appointmentCreate  = async (appointmentDTO) => requestPost("/appointment", appointmentDTO);
+export const appointmentBook    = async (bookDTO)        => requestPost("/appointment/book", bookDTO);

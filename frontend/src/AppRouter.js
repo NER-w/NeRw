@@ -1,7 +1,7 @@
-import React from 'react';
+import  React from 'react';
 import {useContext} from "react";
 import {Routes, Route, useNavigate} from 'react-router-dom';
-import {AuthRoutes, PublicRoutes} from "./routes";
+import {PatientRoutes, PublicRoutes,DoctorRoutes} from "./routes";
 import {Context} from "./index";
 import User from "./pages/user";
 
@@ -12,9 +12,13 @@ const AppRouter = () => {
     return (
         <Routes>
             {
-                UserStore.isAuth && AuthRoutes.map(({ path, Component})=>(
+                UserStore.isAuth && PatientRoutes.map(({ path, Component})=>(
                     <Route key={path} path={path} element={<Component/>}/>
                 ))
+            }
+            { UserStore.isDoc && DoctorRoutes.map(({path, Component}) =>
+                <Route key={path} path={path} element={<Component/>}/>
+            )
             }
             {
                 PublicRoutes.map(({ path, Component})=>(
