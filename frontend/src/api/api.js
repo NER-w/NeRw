@@ -1,21 +1,22 @@
 import axios from "axios";
 
-export const API_URL = "https://1757-145-76-108-223.ngrok-free.app/";
+export const API_URL = "https://230f-2001-1c06-1b15-4700-8e53-99be-b4ae-3b11.ngrok-free.app/";
 
 const api = axios.create({
     withCredentials: false,
     baseURL: API_URL,
     timeout: 10000,
     headers: {
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
+        "Acess-Control-Allow-Methods": ["GET", "POST"],
+        "User-Agent": "axios",
     }
-    // cancelToken: axios.CancelToken.source().token // Set default cancelToken
 })
 
 async function request(method, url, payload) {
     try {
         const res = await method(url, payload);
-        console.debug("Status: " + res)
+        console.debug("Status:", res)
         return res;
     } catch (e) {
         console.error(e);

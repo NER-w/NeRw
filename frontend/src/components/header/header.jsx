@@ -139,6 +139,7 @@ function ResponsiveAppBar() {
                             >
                                 {page.name}
                             </Button>
+                            
                         ))}
                         {UserStore.isDoc && docPages.map((page) => (
                             <Button

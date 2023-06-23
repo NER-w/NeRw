@@ -44,10 +44,10 @@ const SignUp = () => {
         console.log("I am handleSubmitTwo");
         if (doctorState){
           try {
-            console.log(doctorDTO);
             const res = await doctorRegister(doctorDTO);
+            if (res == undefined) alert("PARAGRAPH");
+
             const status = res.status;
-            console.log("DOC: " + status);
             if (status === 200){
               navigate('/home');
               UserStore.setDoc(true);
@@ -59,7 +59,9 @@ const SignUp = () => {
           }
         } else if (patientState){
           try {
-            const status = await patientRegister(PatientDTO);
+            const res = await patientRegister(PatientDTO);
+            if (res == undefined) alert("PARAGRAPH");
+            const status = res.status;
             console.log("PAT: " + status);
             if(status === 200){
               navigate('/home');

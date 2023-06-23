@@ -5,9 +5,13 @@ import Modal from '@mui/material/Modal';
 import BookedForm from '../components/forms/BookedForm'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { Dayjs } from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import {useContext, useState} from 'react'
 import {Context} from "../index";
 import {appointmentCreate} from "../api/api";
+
 const style = {
     position: 'absolute' ,
     top: '50%',
@@ -36,19 +40,20 @@ export default function CreateModal() {
     }
 
     const createApp = async () => {
+        console.log("APP", appDTO);
         const res = await appointmentCreate(appDTO);
         const status = res.status;
-        if (status == 200) {
+        if (status === 200) {
             alert("Not paragraph!");
         } else {
             alert("Paragraph!");
         }
-        console.log(res);
+        console.log("RES:", res);
     }
 
     return (
         <div>
-            <Button onClick={handleOpen}>Open  <b>PARAGRAPH</b></Button>
+            <Button onClick={handleOpen}>Create paragraph</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -57,7 +62,7 @@ export default function CreateModal() {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Create  <b>PARAGRAPH</b>
+                        Create paragraph
                     </Typography>
 
                     <Typography id="modal-modal-title" variant="h6" component="h3">
@@ -74,6 +79,13 @@ export default function CreateModal() {
                             autoComplete="off"
                         >
 
+                            {/* <DateTimePicker
+                                    value={dateTime_}
+                                    onChange={(newValue) => {
+                                        setDateTime(newValue);
+                                    }}
+                                    renderInput={(params) => <TextField {...params} />}
+                                    /> */}
                             <TextField onChange={(data) => setDateTime(data.target.value)} id="Enter date and time"
                                        label="Enter date and time" variant="standard"/>
                             <TextField onChange={(data) => setDuration(data.target.value)} id="Duration" label="Enter duration"
