@@ -1,6 +1,6 @@
 from models.dtoModels import AppointmentDTO, BookingDTO, AppointmentCreateDTO
-from sqlalchemy.orm import Session
-from models.dbModels import Appointment
+from sqlalchemy.orm import Session, join
+from models.dbModels import Appointment, Doctor
 from fastapi import HTTPException
 from dbConnect import SessionLocal
 
@@ -16,7 +16,10 @@ async def retrieve_appointments_by_patient(patient_id_):
 
 async def retrieve_appointments_by_doctor():
     db = SessionLocal()
-    appointment_ = db.query(Appointment).filter(Appointment.patient_id is None).all()
+    # join_condition = Doctor.id == Appointment.doctor_id
+    # appointment_ = db.query(Appointment).join(join_condition).filter().all()
+    # print(appointment_)
+    appointment_ = db.query(Appointment).filter(Appointment.patient_id == None).all()
     if appointment_:
         return appointment_
     else:
@@ -31,7 +34,7 @@ async def create_appointment_service(appointment_dto: AppointmentCreateDTO):
     #                               doctor_id=1, patient_id=None)
     some = db.add(new_appointment)
     db.commit()
-    return some
+    return True
 
 
 async def book_appointment_service(booking: BookingDTO):

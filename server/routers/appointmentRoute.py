@@ -8,9 +8,15 @@ from services.appointmentService import retrieve_appointments_by_doctor, retriev
 
 
 @router.post('/')
-async def create_appointment(appointment: AppointmentCreateDTO):
-    return await create_appointment_service(appointment)
-
+async def create_appointment(response: Response, appointment: AppointmentCreateDTO):
+    if await create_appointment_service(appointment):
+        # Return a JSON response with a custom status code
+        response.status_code = 200
+        return "JuraZestkij"
+    else:
+        # Return a JSON response with a different status code
+        response.status_code = 401
+        return "JuraZestkij"
 
 @router.get('/{id}')
 async def rettrieve_by_patient(id: int):

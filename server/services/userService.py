@@ -4,17 +4,19 @@ from sqlalchemy.orm import Session
 from dbConnect import SessionLocal
 import bcrypt
 
+salt = bcrypt.gensalt(5)
+
 
 def patient_checker(patient: PatientDTO):
     db = SessionLocal()
-    salt = bcrypt.gensalt()
-    pwhash = bcrypt.hashpw(patient.hashedPassword.encode(), salt)
+    # salt = bcrypt.gensalt(5)
     user = db.query(Patient).filter_by(id=patient.id, password=pwhash).first()
     return user is not None
 
+
 def sign_up_patient(patient: PatientDTO):
     db = SessionLocal()
-    salt = bcrypt.gensalt()
+    # salt = bcrypt.gensalt(5)
     pwhash = bcrypt.hashpw(patient.hashedPassword.encode(), salt)
     added_patient = db.query(Patient).filter_by(email=patient.email).first()
     if added_patient:
@@ -32,7 +34,9 @@ def sign_up_patient(patient: PatientDTO):
 
 def login_patient(patient: PatientLoginDTO):
     db = SessionLocal()
-    patient_ = db.query(Patient).filter_by(email=patient.email)
+    pwhash = bcrypt.hashpw(patient.password.encode(), salt)
+    patient_ = db.query(Patient).filter_by(email=patient.email, hashed_password=pwhash).first()
+    print(pwhash)
     if patient_:
         return True
     else:
@@ -41,7 +45,7 @@ def login_patient(patient: PatientLoginDTO):
 
 def doctor_checker(doctor: DoctorDTO):
     db = SessionLocal()
-    salt = bcrypt.gensalt()
+    # salt = bcrypt.gensalt(5)
     pwhash = bcrypt.hashpw(doctor.hashedPassword.encode(), salt)
     user = db.query(Doctor).filter_by(id=doctor.id, password=pwhash).first()
     return user is not None
@@ -49,7 +53,7 @@ def doctor_checker(doctor: DoctorDTO):
 
 def sign_up_doctor(doctor: DoctorDTO):
     db = SessionLocal()
-    salt = bcrypt.gensalt()
+    # salt = bcrypt.gensalt(5)
     added_doc = db.query(Doctor).filter_by(email=doctor.email).first()
     print(added_doc)
     if added_doc:
@@ -65,8 +69,10 @@ def sign_up_doctor(doctor: DoctorDTO):
 
 def login_doctor(doctor: DoctorLoginDTO):
     db = SessionLocal()
-    patient_ = db.query(Patient).filter_by(email=doctor.email)
-    if patient_:
+    # salt = bcrypt.gensalt(5)
+    pwhash = bcrypt.hashpw(doctor.password.encode(), salt)
+    doctor_ = db.query(Patient).filter_by(email=doctor.email, hashed_password=pwhash).first()
+    if doctor_:
         return True
     else:
         return False

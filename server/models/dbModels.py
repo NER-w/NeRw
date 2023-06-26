@@ -1,4 +1,4 @@
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship,Mapped,mapped_column
 from sqlalchemy import Column, Integer, String, ForeignKey, Date, DateTime
 from dbConnect import Base
 
@@ -23,7 +23,8 @@ class Appointment(Base):
     Duration = Column(Integer)
     patient_id = Column(Integer, ForeignKey("patient.id"), nullable=True)
     patient = relationship("Patient", back_populates="appointments")
-    doctor_id = Column(Integer,  ForeignKey("doctor.id"))
+    # doctor_id = Column(Integer,  ForeignKey("doctor.id"))
+    doctor_id: Mapped[int] = mapped_column(ForeignKey("doctor.id"))
     doctor = relationship("Doctor",  back_populates="appointments")
 
 
