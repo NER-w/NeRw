@@ -3,10 +3,7 @@ import { BarChart, XAxis, YAxis, Tooltip, Bar, Label} from 'recharts';
 import './pages.css';
 
 const UserData = () => {
-    <style>
-    
-        }
-    </style>
+   
    // const handleDataGet =  async ()=>{
     //     try{
     //         let res = await  
@@ -96,8 +93,6 @@ const UserData = () => {
                  </YAxis>
                 <Tooltip />
 
-                   
-            
                 <Bar dataKey="value" fill="#ED4365" fillOpacity={0.8} >
                    
                 </Bar>

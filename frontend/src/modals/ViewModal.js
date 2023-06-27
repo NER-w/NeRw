@@ -73,9 +73,9 @@ export default function ViewModal() {
           {UserStore.appointmentList_?.map((data) => (
               <BookedForm key={data.id} data={data}/>
           ))}
-           {appointments?.map((data) => (
+           {/* {appointments?.map((data) => (
                 <BookedForm key={data.id} data={data}/>
-            ))}
+            ))} */}
         </Box>
       </Modal>
     </div>

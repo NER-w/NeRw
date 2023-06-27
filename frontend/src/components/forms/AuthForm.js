@@ -28,40 +28,36 @@ const AuthForm = () => {
     }
 
     const handleSubmit = async () => {
-        console.log("I am handleSubmit");
-        if (doctorState){
-            try {
+        try {
+            if (doctorState) {
                 console.log(doctorDTO);
                 const res = await doctorLogin(doctorDTO);
                 const status = res.status;
-                console.log("DOC: " + status);
-                if (status == 200){
-                    navigate('/home');
+                if (status === 200) {
                     UserStore.setDoc(true);
-                } else if (status == 401 || status == undefined){
-                    alert('Im not the one who is wrong... What is wrong is the world.');
+                    UserStore.setUser(false);
+                    navigate('/apppointment-doc');
+                } else if (status === 401 || status === undefined) {
+                    alert('Oops, something went wrong');
                 }
-            } catch (error) {
-                console.error(error);
-            }
-        } else if (patientState){
-            try {
-                const status = await patientLogin(PatientDTO);
-                console.log("PAT: " + status);
-                if (status == 200){
-                    navigate('/home');
+            } else if (patientState) {
+                const res = await patientLogin(PatientDTO);
+                const status = res.status;
+                if (status === 200) {
+                    navigate('/user-data');
+                    UserStore.setDoc(false);
                     UserStore.setUser(true);
-                } else if (status == 401 || status == undefined){
-                    alert('Those who do not understand true pain can never understand true peace.');
+                } else if (status === 401 || status === undefined) {
+                    alert('Oops, something went wrong');
                 }
-            } catch (error) {
-                console.error(error);
+            } else {
+                console.log("Oops, something went wrong!");
             }
-        } else {
-            console.log("Omedeto!");
+        } catch (error) {
+            console.error(error);
         }
     };
-
+    
     return (
         <div className="login-form">
             <h3 id="SignInHandler">Sign In </h3>

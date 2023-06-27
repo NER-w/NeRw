@@ -1,9 +1,10 @@
 import React, {useState, useContext} from 'react';
 import './SignUp.css';
-import {patientRegister, doctorRegister} from "../../api/api";
+import {patientRegister, doctorLogin, doctorRegister, uLogin} from "../../api/api";
 import doc from "../../pages/doc";
 import { useNavigate } from 'react-router-dom';
 import {Context} from '../../index.js';
+
 
 const SignUp = () => {
     const navigate = useNavigate();
@@ -29,54 +30,40 @@ const SignUp = () => {
         hashedPassword: password,
         email: username
     }
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     setUsername('');    
-    //     setPassword('');
-    //     setErrorMessage('');
-    //     setFistname('');
-    //     setLastname('');
-    //     console.log("I am handleSubmit");
-    // };
-
     const handleSubmitTwo = async () => {
-        console.log("I am handleSubmitTwo");
-        if (doctorState){
+      if (doctorState) {
           try {
-            const res = await doctorRegister(doctorDTO);
-            if (res == undefined) alert("Oops, something went wrong");
-
-            const status = res.status;
-            if (status === 200){
-              navigate('/home');
-              UserStore.setDoc(true);
-            } else if (status === 401){
-              alert('Oops, something went wrong');
-            }
+              console.log(doctorDTO);
+              const res = await doctorRegister(doctorDTO);
+              const status = res.status;
+              if (status === 200) {
+                  navigate('/apppointment-doc');
+                  UserStore.setDoc(true);
+              } else if (status === 401 || status === undefined) {
+                  alert('Oops, something went wrong');
+              }
           } catch (error) {
-            console.error(error);
+              console.error(error);
           }
-        } else if (patientState){
+      } else if (patientState) {
           try {
-            const res = await patientRegister(PatientDTO);
-            if (res == undefined) alert("Oops, something went wrong");
-            const status = res.status;
-            console.log("PAT: " + status);
-            if(status === 200){
-              navigate('/home');
-              UserStore.setUser(true);
-            } else if(status === 401){
-              alert('Ooops, something went wrong');
-            }
-          } catch (error) {
-            console.error(error);
-          }
-        } else {
-          console.log("Yamete kudosai");
-        }
-      };
 
+              const res = await patientRegister(PatientDTO);
+              const status = res.status;
+              if (status === 200) {
+                  navigate('/user-data');
+                  UserStore.setUser(true);
+              } else if (status === 401 || status === undefined) {
+                  alert('Oops, something went wrong');
+              }
+          } catch (error) {
+              console.error(error);
+          }
+      } else {
+          console.log("Oops, something went wrong!");
+      }
+  };
+  
     return (
         <div className="login-form">
             <h3 id="SignInHandler">Sign Up </h3>
