@@ -36,7 +36,11 @@ sdist/
 build/
 dist/
 bin/
+
 /.pnp
+
+/frontend/node_modules
+/frontend/.pnp
 .pnp.js
 
 # Compiled Python extensions
