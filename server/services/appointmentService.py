@@ -7,7 +7,9 @@ from dbConnect import SessionLocal
 
 async def retrieve_appointments_by_patient(patient_id_):
     db = SessionLocal()
-    appointment_ = await db.query(Appointment).filter(patient_id=patient_id_).all()
+    print("Patient: ")
+    print(patient_id_)
+    appointment_ =  db.query(Appointment).filter(Appointment.patient_id == patient_id_).all()
     if appointment_:
         return appointment_
     else:
@@ -40,6 +42,7 @@ async def create_appointment_service(appointment_dto: AppointmentCreateDTO):
 async def book_appointment_service(booking: BookingDTO):
     db = SessionLocal()
     appointment = db.query(Appointment).filter_by(id=booking.appointment_id).first()
+    print(appointment)
     if appointment.patient_id is None:
         appointment.patient_id = booking.user_id
         db.commit()
@@ -50,7 +53,7 @@ async def book_appointment_service(booking: BookingDTO):
 
 async def remove_appointment(id_):
     db = SessionLocal()
-    record = await db.query(Appointment).filter_by(id=id_).first()
+    record =  db.query(Appointment).filter_by(id=id_).first()
     if record:
         db.delete(record)
     else:

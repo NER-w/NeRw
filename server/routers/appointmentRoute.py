@@ -18,6 +18,7 @@ async def create_appointment(response: Response, appointment: AppointmentCreateD
         response.status_code = 401
         return "JuraZestkij"
 
+
 @router.get('/{id}')
 async def rettrieve_by_patient(id: int):
     return await retrieve_appointments_by_patient(id)

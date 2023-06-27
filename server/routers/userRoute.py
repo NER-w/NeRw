@@ -21,6 +21,7 @@ async def doc_sign_up(response: Response, doctor: DoctorDTO):
 
 @router.post('/login-doctor')
 async def doc_login_route(response: Response, doctor: DoctorLoginDTO):
+    print(doctor)
     if login_doctor(doctor):
         # Return a JSON response with a custom status code
         response.status_code = 200
@@ -50,6 +51,7 @@ async def pat_sign_up(response: Response, patient: PatientDTO):
 
 @router.post('/login-patient')
 async def pat_login_route(response: Response, patient: PatientLoginDTO):
+    print(patient)
     if login_patient(patient):
         # Return a JSON response with a custom status code
         response.status_code = 200

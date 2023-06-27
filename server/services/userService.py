@@ -14,11 +14,11 @@ def patient_checker(patient: PatientDTO):
     return user is not None
 
 
-def sign_up_patient(patient: PatientDTO):
+async def sign_up_patient(patient: PatientDTO):
     db = SessionLocal()
     # salt = bcrypt.gensalt(5)
     pwhash = bcrypt.hashpw(patient.hashedPassword.encode(), salt)
-    added_patient = db.query(Patient).filter_by(email=patient.email).first()
+    added_patient = await db.query(Patient).filter_by(email=patient.email).first()
     if added_patient:
         return False
     new_patient = Patient(
@@ -32,11 +32,10 @@ def sign_up_patient(patient: PatientDTO):
     return True
 
 
-def login_patient(patient: PatientLoginDTO):
+async def login_patient(patient: PatientLoginDTO):
     db = SessionLocal()
     pwhash = bcrypt.hashpw(patient.password.encode(), salt)
-    patient_ = db.query(Patient).filter_by(email=patient.email, hashed_password=pwhash).first()
-    print(pwhash)
+    patient_ = await db.query(Patient).filter_by(email=patient.email, hashed_password=pwhash).first()
     if patient_:
         return True
     else:
@@ -51,7 +50,7 @@ def doctor_checker(doctor: DoctorDTO):
     return user is not None
 
 
-def sign_up_doctor(doctor: DoctorDTO):
+async def  sign_up_doctor(doctor: DoctorDTO):
     db = SessionLocal()
     # salt = bcrypt.gensalt(5)
     added_doc = db.query(Doctor).filter_by(email=doctor.email).first()
@@ -60,19 +59,32 @@ def sign_up_doctor(doctor: DoctorDTO):
         return False
     else:
         pwhash = bcrypt.hashpw(doctor.hashedPassword.encode(), salt)
-        new_doctor = Doctor(name=doctor.name, lastname=doctor.lastname, email=doctor.email, hashedPassword=pwhash)
+        new_doctor = await Doctor(name=doctor.name, lastname=doctor.lastname, email=doctor.email, hashedPassword=pwhash)
         status = db.add(new_doctor)
         status2 = db.commit()
 
         return True
 
 
-def login_doctor(doctor: DoctorLoginDTO):
+async def login_doctor(doctor: DoctorLoginDTO):
     db = SessionLocal()
-    # salt = bcrypt.gensalt(5)
+    print("you")
+
     pwhash = bcrypt.hashpw(doctor.password.encode(), salt)
-    doctor_ = db.query(Patient).filter_by(email=doctor.email, hashed_password=pwhash).first()
+    doctor_ = await db.query(Doctor).filter_by(email=doctor.email, hashedPassword=pwhash).first()
+    print(doctor_)
     if doctor_:
+        return True
+    else:
+        return False
+
+
+async def login_patient(patient: PatientLoginDTO):
+    db = SessionLocal()
+    pwhash = bcrypt.hashpw(patient.password.encode(), salt)
+    patient_ = await db.query(Patient).filter_by(email=patient.email, hashed_password=pwhash).first()
+    print(patient_)
+    if patient_:
         return True
     else:
         return False
