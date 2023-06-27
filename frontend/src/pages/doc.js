@@ -1,10 +1,11 @@
 import React from 'react';
 import {Body} from "../components";
+import CreateModal from "../modals/CreateModal";
 
 const Doc = () => {
     return (
         <div>
-            <h1>JURIY RIZHSKIY</h1>
+            <CreateModal/>
         </div>
     );
 };

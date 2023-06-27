@@ -14,32 +14,22 @@ import Registration from "./pages/registration";
 import User from "./pages/user";
 import  PatientList from "./pages/PatientList";
 import Profile from "./pages/profile";
-import  User_data from "./pages/user_data";
+// import  User_data from "./pages/user_data";
 import  DoctorAppoint from "./pages/DoctorAppoint";
 import UserAppointmenrt from "./pages/userAppointmenrt";
+import UserData from "./pages/user_data"
 
-
-export const AuthRoutes =[
+export const PatientRoutes =[
     {
         path: PATIENT_LIST_ROUTE,
         Component: PatientList,
     },
-    {
-      path: DOCTOR_APPOINTMENT_ROUTE,
-      Component: DoctorAppoint,
-    },
+
     {
         path: HOME_ROUTE,
         Component: Profile,
     },
-    {
-        path: USER_DATA_ROUTE,
-        Component: User_data,
-    },
-    {
-        path: DOCTOR_APPLICATION_ROUTE,
-        Component: Doc,
-    },
+
     {
         path: USER_APPLICATION_ROUTE,
         Component: User,
@@ -48,8 +38,26 @@ export const AuthRoutes =[
         path: USER_APPOINTMENT_ROUTE,
         Component: UserAppointmenrt,
     },
+    {
+        path: USER_DATA_ROUTE,
+        Component: UserData,
+    }
 ];
+export const DoctorRoutes = [
+    {
+        path: DOCTOR_APPOINTMENT_ROUTE,
+        Component: DoctorAppoint,
+    },
+    {
+        path: HOME_ROUTE,
+        Component: Profile,
+    },
 
+    {
+        path: DOCTOR_APPLICATION_ROUTE,
+        Component: Doc,
+    }
+]
 export const PublicRoutes = [
     {
         path: LOGIN_ROUTE,
@@ -59,4 +67,5 @@ export const PublicRoutes = [
         path: REGISTER_ROUTE,
         Component: Registration,
     },
+
 ];

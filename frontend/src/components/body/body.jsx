@@ -7,7 +7,7 @@ import {AuthForm, SignUp} from "../index";
 const body =()=>{
     return (
         <div className="main_body">
-            
+      
         </div>
     )
 };

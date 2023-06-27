@@ -12,12 +12,28 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import {useNavigate} from "react-router-dom";
+import {useContext} from "react";
+import {Context} from "../../index";
+import { observer } from 'mobx';
 
-const pages = ['Appointments', 'Sensor Data'];
-const settings = ['Profile', 'Log out'];
 
 
-function ResponsiveAppBar() {
+const ResponsiveAppBar = () => {
+    const {UserStore} = useContext(Context)
+    const userPages = [
+        {name: 'Appointments', route: '/appointment-user'},
+        {name: 'Sensor Data', route: '/user-data'}];
+
+    const docPages = [{name: 'Appointments', route: '/appointment-doc'}]
+    const settings = ['Log out'];
+    const navigate = useNavigate();
+
+    const toUrl = (route) => {
+        UserStore.setDoc(false);
+        UserStore.setUser(false);
+        navigate(route);
+    }
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -31,6 +47,7 @@ function ResponsiveAppBar() {
     };
 
     const handleCloseNavMenu = () => {
+        
         setAnchorElNav(null);
     };
 
@@ -59,7 +76,7 @@ function ResponsiveAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        NERW
+                        NeRw
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -68,7 +85,7 @@ function ResponsiveAppBar() {
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
+                            // onClick={handleOpenNavMenu}
                             color="inherit"
                         >
                             <MenuIcon />
@@ -91,11 +108,11 @@ function ResponsiveAppBar() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
+                            {/*{pages.map((page) => (*/}
+                            {/*    <MenuItem key={page.name} onClick={handleCloseNavMenu}>*/}
+                            {/*        <Typography textAlign="center">{page.name}</Typography>*/}
+                            {/*    </MenuItem>*/}
+                            {/*))}*/}
                         </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -118,13 +135,24 @@ function ResponsiveAppBar() {
                         LOGO
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
+                        { UserStore.isUser && userPages.map((page) => (
                             <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block', fontSize: "20px", fontFamily: "Arial" }}
+                                key={page.name}
+                                sx={{ my: 2, color: 'white', display: 'block', fontSize: '20px', fontFamily: 'Arial' }}
+                                onClick={() => navigate(page.route)}
                             >
-                                {page}
+                                {page.name}
+                            </Button>
+                            
+                        ))}
+                        
+                        {UserStore.isDoc && docPages.map((page) => (
+                            <Button
+                                key={page.name}
+                                sx={{ my: 2, color: 'white', display: 'block', fontSize: '20px', fontFamily: 'Arial' }}
+                                onClick={() => navigate(page.route)}
+                            >
+                                {page.name}
                             </Button>
                         ))}
                     </Box>
@@ -151,7 +179,7 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem key={setting} onClick={() => toUrl('/register')}>
                                     <Typography textAlign="center" sx={{fontFamily: 'arial'}}>{setting}</Typography>
                                 </MenuItem>
                             ))}

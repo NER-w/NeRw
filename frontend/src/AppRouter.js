@@ -1,30 +1,37 @@
-import React from 'react';
+import  React from 'react';
 import {useContext} from "react";
 import {Routes, Route, useNavigate} from 'react-router-dom';
-import {AuthRoutes, PublicRoutes} from "./routes";
+import {PatientRoutes, PublicRoutes,DoctorRoutes} from "./routes";
 import {Context} from "./index";
 import User from "./pages/user";
+import { observer } from 'mobx-react-lite';
 
-
-const AppRouter = () => {
+const AppRouter =  () => {
     const {UserStore} = useContext(Context);
-    console.log("DEBUG"+ UserStore.isAuth);
+    console.log("USER" + UserStore.isUser);
+    let userState = UserStore.isAuth;
     return (
         <Routes>
             {
-                UserStore.isAuth && AuthRoutes.map(({ path, Component})=>(
+                UserStore.isUser && PatientRoutes.map(({ path, Component})=>(
                     <Route key={path} path={path} element={<Component/>}/>
                 ))
+            }
+            { 
+            
+                UserStore.isDoc && DoctorRoutes.map(({path, Component}) =>
+                <Route key={path} path={path} element={<Component/>}/>
+            )
             }
             {
-                PublicRoutes.map(({ path, Component})=>(
+                !UserStore.isAuth && PublicRoutes.map(({ path, Component})=>(
                     <Route key={path} path={path} element={<Component/>}/>
                 ))
             }
-        </Routes>
 
+        </Routes>
 
     );
 };
 
-export default AppRouter;
+export default observer(AppRouter); 

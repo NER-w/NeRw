@@ -13,7 +13,7 @@ env/
 venv/
 env.bak/
 venv.bak/
-
+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
 # IDE and editor files
 .idea/
 .vscode/
@@ -36,6 +36,9 @@ sdist/
 build/
 dist/
 bin/
+
+/.pnp
+
 /frontend/node_modules
 /frontend/.pnp
 .pnp.js
@@ -73,5 +76,7 @@ error.log
 # testing
 /coverage
 
+
 # production
 /build
+/frontend/node_modules
