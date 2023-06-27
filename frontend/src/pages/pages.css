@@ -36,7 +36,23 @@
     margin: auto;
     display: inline-flex;
 }
-
+.chart {
+    display: flex;
+    margin-top: 10%;
+    justify-content: center;
+}
+.red-div-user {
+    width: 350px;
+    height: 150px;
+    border-style: none;
+    /*border-color: black;*/
+    border-radius: 40px;
+    background-image: linear-gradient(#B6C7BE, #F4F4EF);
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    padding-top: 85px;
+}
 
 
 

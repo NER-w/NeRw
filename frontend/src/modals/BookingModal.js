@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import BookedForm from '../components/forms/BookedForm'
+import UserBookingForm from "../components/forms/UserBookingForm";
 import { appointmentsGet } from '../api/api';
 import {Context} from "../index";
 import { useContext } from 'react';
@@ -21,7 +21,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-export default function ViewModal() {
+export default function BookingModal() {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -33,14 +33,13 @@ export default function ViewModal() {
 
   const viewApp = async() =>{
     try {
-         
         const res = await appointmentsGet();
         console.log("RESULT: ", res);
         setAppointments(res.data);
         UserStore.appointmentListSet(res.data);
         const status = res.status;
         if (status == 200){
-         
+          
         } else {
             alert("Nu open..")
         }
@@ -55,7 +54,7 @@ export default function ViewModal() {
     handleOpen();
     viewApp();
 }}>
-  View open
+  Open appointments
 </Button>
       <Modal
         open={open}
@@ -65,16 +64,13 @@ export default function ViewModal() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Your paragraphs doc:
+            Your appointments:
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 
           </Typography>
-          {UserStore.appointmentList_?.map((data) => (
-              <BookedForm key={data.id} data={data}/>
-          ))}
            {appointments?.map((data) => (
-                <BookedForm key={data.id} data={data}/>
+                <UserBookingForm key={data.id} data={data}/>
             ))}
         </Box>
       </Modal>

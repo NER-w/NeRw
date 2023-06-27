@@ -3,9 +3,9 @@ import {makeAutoObservable} from "mobx";
 class UserStore {
     constructor(){
         this._isAuth = true;
-        this._isUser = true;
-        this._isDoc = false;
-        this.userId = null;
+        this._isUser = false;
+        this._isDoc = true;
+        this.userId = 1;
         this.docId = 1;
         this.appointmentList = [''];
         makeAutoObservable(this);
@@ -34,6 +34,9 @@ class UserStore {
 
     get isDoc() {
         return this._isDoc;
+    }
+    get patId(){
+        return this.userId;
     }
     
     setDoc(state){

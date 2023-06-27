@@ -69,7 +69,7 @@ const AuthForm = () => {
                 <input
                     type="text"
                     name="username"
-                    placeholder="I'm not a paragraph, I'm a <b>placeholder!</b>"
+                    placeholder="Enter your username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
@@ -77,7 +77,7 @@ const AuthForm = () => {
                 <input
                     type="password"
                     name="password"
-                    placeholder="Password"
+                    placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -87,7 +87,7 @@ const AuthForm = () => {
                 <input type="radio" id="doctor"  onClick={(e) => {setDoctorState(true)} } name="role" value="doctor" />
                 <label id="SignUpHandler" htmlFor="doctor" >Doctor</label>
                 <div>
-                    <p id="SignUpHandler">Don't have a paragraph? <a href="/register"> Create one!</a></p>
+                    <p id="SignUpHandler">Don't have an account?<a href="/register"> Create one!</a></p>
                 </div>
             </form>
             <button onClick={() => {handleSubmit(); console.log("SUBMIT");}} type="submit" value="Register">

@@ -21,7 +21,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-export default function ViewModal() {
+export default function ViewModalById() {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -34,7 +34,7 @@ export default function ViewModal() {
   const viewApp = async() =>{
     try {
          
-        const res = await appointmentsGet();
+        const res = await appointmentsGetById();
         console.log("RESULT: ", res);
         setAppointments(res.data);
         UserStore.appointmentListSet(res.data);
@@ -42,7 +42,7 @@ export default function ViewModal() {
         if (status == 200){
          
         } else {
-            alert("Oops, something went wrong")
+            alert("Nu open..")
         }
         console.log(res);
     } catch(e){
@@ -55,7 +55,7 @@ export default function ViewModal() {
     handleOpen();
     viewApp();
 }}>
-  Open appointments
+  View open
 </Button>
       <Modal
         open={open}

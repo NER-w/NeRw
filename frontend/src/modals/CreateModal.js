@@ -44,16 +44,16 @@ export default function CreateModal() {
         const res = await appointmentCreate(appDTO);
         const status = res.status;
         if (status === 200) {
-            alert("Not paragraph!");
+            alert("You have created appointment");
         } else {
-            alert("Paragraph!");
+            alert("Oops, something went wrong");
         }
         console.log("RES:", res);
     }
 
     return (
         <div>
-            <Button onClick={handleOpen}>Create paragraph</Button>
+            <Button onClick={handleOpen}>Create appointment</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -62,7 +62,7 @@ export default function CreateModal() {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Create paragraph
+                        Create appointment
                     </Typography>
 
                     <Typography id="modal-modal-title" variant="h6" component="h3">
@@ -79,13 +79,6 @@ export default function CreateModal() {
                             autoComplete="off"
                         >
 
-                            {/* <DateTimePicker
-                                    value={dateTime_}
-                                    onChange={(newValue) => {
-                                        setDateTime(newValue);
-                                    }}
-                                    renderInput={(params) => <TextField {...params} />}
-                                    /> */}
                             <TextField onChange={(data) => setDateTime(data.target.value)} id="Enter date and time"
                                        label="Enter date and time" variant="standard"/>
                             <TextField onChange={(data) => setDuration(data.target.value)} id="Duration" label="Enter duration"
